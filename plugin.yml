@@ -1,0 +1,14 @@
+name: TimeBan
+version: 1.0.0
+author: applqpak
+api: [2.0.0, 3.0.0]
+main: applqpak\TimeBan\Main
+permissions:
+  timeban.command:
+    default: op
+  timeban.command.list:
+    default: op
+  timeban.command.ban:
+    default: op
+  timeban.command.pardon:
+    default: op
