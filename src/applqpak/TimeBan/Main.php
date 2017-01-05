@@ -14,7 +14,7 @@
       public $usage = 'Usage: /timeban <ban | pardon | list> [username | time(in minutes) | reason] [username]';
       public function onLoad()
       {
-          @mkdir($this->getDataFolder();
+          @mkdir($this->getDataFolder());
           $this->saveDefaultConfig();
       }
       
