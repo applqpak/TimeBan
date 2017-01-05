@@ -23,7 +23,7 @@
           return $this->getConfig()->getAll();
       }
       
-      public function saveConfig()
+      public function saveCfg()
       {
           $this->getConfig()->save();
       }
