@@ -18,16 +18,6 @@
           $this->saveDefaultConfig();
       }
       
-      public function getCfg()
-      {
-          return $this->getConfig()->getAll();
-      }
-      
-      public function saveCfg()
-      {
-          $this->getConfig()->save();
-      }
-      
       public function onEnable()
       {
           $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
