@@ -66,7 +66,7 @@
                     $sender->sendMessage(TextFormat::RED . 'Please specify a valid time(in minutes).');
                     return false;
                 }
-                $time = strtotime($time . ' minutes');
+                $time = strtotime('+' . $time . ' minutes');
                 $this->plugin->getConfig()->getAll()[$player->getClientId()]         = 'true';
                 $this->plugin->getConfig()->getAll()[$player->getClientId()]['time'] = $time;
                 $this->plugin->getConfig()->getAll()[$player->getClientId()]['name'] = strtolower($full_name);
