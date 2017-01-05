@@ -19,12 +19,12 @@
       public function onPreLogin(PlayerPreLoginEvent $event)
       {
           $player = $event->getPlayer();
-          if(isset($this->plugin->getCfg()[$player->getClientId()]))
+          if(isset($this->plugin->getConfig()->getAll()[$player->getClientId()]))
           {
-              if(($this->plugin->getCfg()[$player->getClientId()]['time'] - time()) <= 0)
+              if(($this->plugin->getConfig()->getAll()[$player->getClientId()]['time'] - time()) <= 0)
               {
-                  unset($this->plugin->getCfg()[$player->getClientId()]);
-                  $this->plugin->saveConfig();
+                  unset($this->plugin->getConfig()->getAll()[$player->getClientId()]);
+                  $this->plugin->getConfig()->save();
               }
           }
           else
