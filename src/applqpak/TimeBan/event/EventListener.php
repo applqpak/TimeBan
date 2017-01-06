@@ -23,7 +23,8 @@
           {
               if(($this->plugin->cfg->getNested($player->getClientId() . '.time') - time()) <= 0)
               {
-                  unset($this->plugin->cfg->get($player->getClientId()));
+                  $players = $this->cfg->getAll();
+                  unset($players[$player->getClientId()]);
                   $this->plugin->cfg->save();
               }
           }
