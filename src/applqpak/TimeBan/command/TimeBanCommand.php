@@ -90,12 +90,13 @@
                 $name      = array_shift($args);
                 $player    = $this->plugin->getServer()->getOfflinePlayer($name);
                 $full_name = $player->getName();
-                if(!(isset($this->plugin->cfg->get($player->getClientId()))))
+                if($this->plugin->cfg->get($player->getClientId()) === null)
                 {
                     $sender->sendMessage(TextFormat::RED . $full_name . ' is not banned.');
                     return false;
                 }
-                unset($this->plugin->cfg->get($player->getClientId()));
+                $players = $this->cfg->getAll();
+                unset($players[$player->getClientId()]);
                 $this->plugin->cfg->save();
                 $sender->sendMessage(TextFormat::GREEN . $full_name . ' has been pardoned.');
                 return true;
