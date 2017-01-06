@@ -95,7 +95,7 @@
                     $sender->sendMessage(TextFormat::RED . $full_name . ' is not banned.');
                     return false;
                 }
-                $players = $this->cfg->getAll();
+                $players = $this->plugin->cfg->getAll();
                 unset($players[$player->getClientId()]);
                 $this->plugin->cfg->save();
                 $sender->sendMessage(TextFormat::GREEN . $full_name . ' has been pardoned.');
