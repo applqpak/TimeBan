@@ -56,9 +56,9 @@
                     return false;
                 }
                 $full_name = $player->getName();
-                if(isset($this->plugin->getConfig()->getAll()[$player->getClientId()]))
+                if(isset($this->plugin->cfg->get($player->getClientId())))
                 {
-                    $sender->sendMessage(TextFormat::RED . $full_name . ' is already banned, remaining time until unban: ' . ($this->plugin->getConfig()->getAll()[$player->getClientId()]['time'] - time()));
+                    $sender->sendMessage(TextFormat::RED . $full_name . ' is already banned, remaining time until unban: ' . ($this->plugin->cfg->getNested($player->getClientId() . '.time') - time()) . ' minutes.');
                     return false;
                 }
                 if(!(is_numeric($time)))
@@ -67,10 +67,10 @@
                     return false;
                 }
                 $time = strtotime('+' . $time . ' minutes');
-                $this->plugin->getConfig()->getAll()[$player->getClientId()]         = 'true';
-                $this->plugin->getConfig()->getAll()[$player->getClientId()]['time'] = $time;
-                $this->plugin->getConfig()->getAll()[$player->getClientId()]['name'] = strtolower($full_name);
-                $this->plugin->getConfig()->save();
+                $this->plugin->cfg->set($player->getClientId(), []);
+                $this->plugin->cfg->setNested($player->getClientId() . '.time', $time);
+                $this->plugin->cfg->setNested($player->getClientId() . '.name', strtolower($full_name));
+                $this->plugin->cfg->save();
                 $player->close('', $reason);
                 $sender->sendMessage(TextFormat::GREEN . $full_name . ' has been banned.');
                 return true;
@@ -90,13 +90,13 @@
                 $name      = array_shift($args);
                 $player    = $this->plugin->getServer()->getOfflinePlayer($name);
                 $full_name = $player->getName();
-                if(!(isset($this->plugin->getConfig()->getAll()[$player->getClientId()])))
+                if(!(isset($this->plugin->cfg->get($player->getClientId()))))
                 {
                     $sender->sendMessage(TextFormat::RED . $full_name . ' is not banned.');
                     return false;
                 }
-                unset($this->plugin->getConfig()->getAll()[$player->getClientId()]);
-                $this->plugin->getConfig()->save();
+                unset($this->plugin->cfg->get($player->getClientId()));
+                $this->plugin->cfg->save();
                 $sender->sendMessage(TextFormat::GREEN . $full_name . ' has been pardoned.');
                 return true;
               break;
@@ -107,9 +107,9 @@
                     $sender->sendMessage(TextFormat::RED . 'Insufficient permissions.');
                     return false;
                 }
-                foreach($this->plugin->getConfig()->getAll() as $key)
+                foreach($this->plugin->cfg->getAll() as $key)
                 {
-                    $sender->sendMessage($this->plugin->getConfig()->getAll()[$key]['name'] . ': ' . $this->plugin->getCfg()[$key]['time']);
+                    $sender->sendMessage($this->plugin->cfg->getNested($key . '.name') . ': ' . $this->plugin->cfg->getNested($key . '.time'));
                 }
                 return true;
               break;
