@@ -11,11 +11,13 @@
   
   class Main extends PluginBase
   {
+      public $cfg;
       public $usage = 'Usage: /timeban <ban | pardon | list> [username | time(in minutes) | reason] [username]';
       public function onLoad()
       {
           @mkdir($this->getDataFolder());
           $this->saveDefaultConfig();
+          $this->cfg = $this->getConfig();
       }
       
       public function onEnable()
