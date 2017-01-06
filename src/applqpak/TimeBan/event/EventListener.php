@@ -19,7 +19,7 @@
       public function onPreLogin(PlayerPreLoginEvent $event)
       {
           $player = $event->getPlayer();
-          if(isset($this->plugin->cfg->get($player->getClientId())))
+          if($this->plugin->cfg->get($player->getClientId()) !== null)
           {
               if(($this->plugin->cfg->getNested($player->getClientId() . '.time') - time()) <= 0)
               {
