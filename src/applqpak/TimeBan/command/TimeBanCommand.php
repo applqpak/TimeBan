@@ -56,7 +56,7 @@
                     return false;
                 }
                 $full_name = $player->getName();
-                if(isset($this->plugin->cfg->get($player->getClientId())))
+                if($this->plugin->cfg->get($player->getClientId()) !== null)
                 {
                     $sender->sendMessage(TextFormat::RED . $full_name . ' is already banned, remaining time until unban: ' . ($this->plugin->cfg->getNested($player->getClientId() . '.time') - time()) . ' minutes.');
                     return false;
